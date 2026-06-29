@@ -1,0 +1,50 @@
+﻿{
+  "name": "vue-3dtiles-viewer",
+  "version": "1.0.0",
+  "description": "3D Tiles 查看器组件，支持 Vue2/Vue3",
+  "main": "dist/core/index.cjs.js",
+  "module": "dist/core/index.esm.js",
+  "exports": {
+    "./core": {
+      "import": "./dist/core/index.esm.js",
+      "require": "./dist/core/index.cjs.js"
+    },
+    "./vue2": "./dist/vue2/index.js",
+    "./vue3": "./dist/vue3/index.mjs"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build:core": "rollup -c rollup.config.js",
+    "build:vue2": "vue-cli-service build --target lib --dest dist/vue2 --name TilesViewer src/vue2/index.js",
+    "build:vue3": "vite build --config vite.config.js",
+    "build": "npm run build:core && npm run build:vue2 && npm run build:vue3"
+  },
+  "peerDependencies": {
+    "three": "^0.167.0",
+    "3d-tiles-renderer": "^0.4.28"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/cli-service": "^5.0.0",
+    "rollup": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "vite": "^4.0.0",
+    "vue": "^3.3.0",
+    "vue-template-compiler": "^2.7.0"
+  },
+  "keywords": [
+    "3d-tiles",
+    "three",
+    "vue",
+    "vue2",
+    "vue3",
+    "bim"
+  ],
+  "author": "",
+  "license": "MIT"
+}
