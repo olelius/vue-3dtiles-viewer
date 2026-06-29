@@ -15,8 +15,8 @@
     "CHANGELOG.md"
   ],
   "peerDependencies": {
-    "three": ">=0.158.0",
-    "3d-tiles-renderer": ">=0.3.0"
+    "3d-tiles-renderer": ">=0.3.0",
+    "three": ">=0.158.0"
   },
   "keywords": [
     "3d-tiles",
@@ -34,5 +34,17 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yourname/vue-3dtiles-viewer.git"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/cli-service": "^5.0.8",
+    "rollup": "^3.29.5",
+    "vite": "^4.5.3",
+    "vue": "^3.4.38",
+    "vue-template-compiler": "^2.7.16",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
   }
 }
