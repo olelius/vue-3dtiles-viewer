@@ -1,52 +1,38 @@
-{
+﻿{
   "name": "vue-3dtiles-viewer",
   "version": "1.0.0",
-  "type": "module",
-  "description": "3D Tiles ???????? Vue2/Vue3",
-  "main": "dist/core/index.cjs.js",
-  "module": "dist/core/index.esm.js",
+  "description": "3D Tiles viewer component for Vue2 and Vue3",
+  "main": "src/core/index.js",
+  "module": "src/core/index.js",
   "exports": {
-    "./core": {
-      "import": "./dist/core/index.esm.js",
-      "require": "./dist/core/index.cjs.js"
-    },
-    "./vue2": "./dist/vue2/index.js",
-    "./vue3": "./dist/vue3/index.mjs"
+    "./core": "./src/core/index.js",
+    "./vue2": "./src/vue2/index.js",
+    "./vue3": "./src/vue3/index.js"
   },
   "files": [
-    "dist",
     "src",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
-  "scripts": {
-    "build:core": "npx rollup -c rollup.config.js",
-    "build:vue2": "npx vue-cli-service build --target lib --dest dist/vue2 --name TilesViewer src/vue2/index.js",
-    "build:vue3": "npx vite build --config vite.config.js",
-    "build": "npm run build:core && npm run build:vue2 && npm run build:vue3",
-    "prepare": "npm run build"
-  },
   "peerDependencies": {
-    "three": "^0.167.0",
-    "3d-tiles-renderer": "^0.4.28"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/cli-service": "^5.0.0",
-    "rollup": "^3.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "@rollup/plugin-commonjs": "^25.0.0",
-    "vite": "^4.0.0",
-    "vue": "^3.3.0",
-    "vue-template-compiler": "^2.7.0"
+    "three": ">=0.158.0",
+    "3d-tiles-renderer": ">=0.3.0"
   },
   "keywords": [
     "3d-tiles",
+    "cesium",
     "three",
+    "threejs",
     "vue",
     "vue2",
     "vue3",
-    "bim"
+    "bim",
+    "gis"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourname/vue-3dtiles-viewer.git"
+  }
 }

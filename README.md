@@ -2,28 +2,43 @@
 
 3D Tiles 查看器组件，支持 Vue2 和 Vue3。
 
-## 特性
+## ✨ 特性
 
-- ✅ 渲染 3D Tiles 模型
-- ✅ 点击构件获取 GlobalId
-- ✅ 批量显隐构件
-- ✅ 批量高亮构件（业务高亮与点击高亮分离）
-- ✅ 性能优化（GlobalId → Mesh 映射表）
-- ✅ 支持 Vue2 和 Vue3
+- 🎯 渲染 3D Tiles 模型
+- 🖱️ 点击构件获取 GlobalId
+- 👁️ 批量显隐构件
+- 🎨 批量高亮构件（业务高亮与点击高亮分离）
+- ⚡ 性能优化（GlobalId → Mesh 映射表）
+- 🔧 支持 Vue2 和 Vue3
 
-## 安装
+## 📦 安装
 
 ```bash
+# 从本地安装
+npm install file:../vue-3dtiles-viewer
+
 # 从 Git 安装
-npm install git+https://github.com/yourname/vue-3dtiles-viewer.git#v1.0.0
+npm install git+https://github.com/yourname/vue-3dtiles-viewer.git
 
 # 安装 peer 依赖
 npm install three@0.167.0 3d-tiles-renderer@0.4.28
 ```
 
-## 使用
+## 🚀 使用
 
 ### Vue2 项目
+
+**1. 配置 vue.config.js：**
+
+```javascript
+module.exports = {
+  transpileDependencies: [
+    'vue-3dtiles-viewer'
+  ]
+};
+```
+
+**2. 使用组件：**
 
 ```vue
 <template>
@@ -35,7 +50,6 @@ npm install three@0.167.0 3d-tiles-renderer@0.4.28
       @ready="handleReady"
     />
     <button @click="hideSelected">隐藏选中</button>
-    <button @click="highlightWalls">高亮墙体</button>
   </div>
 </template>
 
@@ -44,45 +58,35 @@ import ThreeTilesViewer from 'vue-3dtiles-viewer/vue2';
 
 export default {
   components: { ThreeTilesViewer },
-  
   data() {
     return {
       tilesetUrl: '/tiles/tileset.json',
       selectedIds: []
     };
   },
-  
   methods: {
     handleSelect(feature) {
-      console.log('选中构件:', feature.globalId);
+      console.log('选中:', feature.globalId);
       this.selectedIds.push(feature.globalId);
     },
-    
     handleReady() {
-      console.log('模型加载完成');
+      console.log('加载完成');
     },
-    
     hideSelected() {
       this.$refs.viewer.hideByGlobalIds(this.selectedIds);
-    },
-    
-    highlightWalls() {
-      const wallIds = ['id1', 'id2', 'id3'];
-      this.$refs.viewer.highlightByGlobalIds(wallIds);
     }
   }
 };
 </script>
 
 <style>
-.app {
-  width: 100vw;
-  height: 100vh;
-}
+.app { width: 100vw; height: 100vh; }
 </style>
 ```
 
 ### Vue3 项目
+
+**1. 使用组件：**
 
 ```vue
 <template>
@@ -94,7 +98,6 @@ export default {
       @ready="handleReady"
     />
     <button @click="hideSelected">隐藏选中</button>
-    <button @click="highlightWalls">高亮墙体</button>
   </div>
 </template>
 
@@ -107,33 +110,25 @@ const tilesetUrl = '/tiles/tileset.json';
 const selectedIds = ref([]);
 
 const handleSelect = (feature) => {
-  console.log('选中构件:', feature.globalId);
+  console.log('选中:', feature.globalId);
   selectedIds.value.push(feature.globalId);
 };
 
 const handleReady = () => {
-  console.log('模型加载完成');
+  console.log('加载完成');
 };
 
 const hideSelected = () => {
   viewer.value.hideByGlobalIds(selectedIds.value);
 };
-
-const highlightWalls = () => {
-  const wallIds = ['id1', 'id2', 'id3'];
-  viewer.value.highlightByGlobalIds(wallIds);
-};
 </script>
 
 <style>
-.app {
-  width: 100vw;
-  height: 100vh;
-}
+.app { width: 100vw; height: 100vh; }
 </style>
 ```
 
-## API
+## 📖 API
 
 ### Props
 
@@ -159,21 +154,32 @@ const highlightWalls = () => {
 | `highlightByGlobalIds(globalIds)` | `string[]` | 批量高亮构件（橙色） |
 | `clearHighlight()` | - | 清除批量高亮 |
 
-## 依赖版本
+## 🔧 依赖版本
 
 本组件基于以下版本开发和测试：
 - `three@0.167.0`
 - `3d-tiles-renderer@0.4.28`
 
-如果你的项目使用其他版本，欢迎反馈兼容性问题。
+支持版本范围：
+- `three >= 0.158.0`
+- `3d-tiles-renderer >= 0.3.0`
 
-## 性能优化
+## ⚡ 性能优化
 
-组件内部使用 GlobalId → Mesh 映射表优化批量操作性能：
+组件内部使用 **GlobalId → Mesh 映射表**优化批量操作性能：
 - 10,000 mesh 场景，单次批量操作 < 1ms
 - 适合频繁调用场景
 
-## 浏览器兼容性
+## 📝 分发模式
+
+本包采用**源码分发模式**：
+- 不包含预编译的 dist/
+- 由使用者的构建工具（webpack/vite）处理编译
+- 需要配置 `transpileDependencies`（Vue2）
+
+这是 Vue 组件库的标准实践（如 Element UI、Vuetify）。
+
+## 🌐 浏览器兼容性
 
 - Chrome 90+
 - Firefox 88+
@@ -182,6 +188,6 @@ const highlightWalls = () => {
 
 不支持 IE11。
 
-## 许可证
+## 📄 许可证
 
 MIT
