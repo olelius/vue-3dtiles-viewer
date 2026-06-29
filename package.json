@@ -2,21 +2,46 @@
   "name": "vue-3dtiles-viewer",
   "version": "1.0.0",
   "description": "3D Tiles viewer component for Vue2 and Vue3",
-  "main": "src/core/index.js",
-  "module": "src/core/index.js",
+  "main": "dist/core/index.cjs.js",
+  "module": "dist/core/index.esm.js",
   "exports": {
-    "./core": "./src/core/index.js",
-    "./vue2": "./src/vue2/index.js",
-    "./vue3": "./src/vue3/index.js"
+    "./core": {
+      "import": "./dist/core/index.esm.js",
+      "require": "./dist/core/index.cjs.js"
+    },
+    "./vue2": "./dist/vue2/TilesViewer.common.js",
+    "./vue3": {
+      "import": "./dist/vue3/index.mjs",
+      "require": "./dist/vue3/index.js"
+    },
+    "./src/*": "./src/*"
   },
   "files": [
+    "dist",
     "src",
     "README.md",
     "CHANGELOG.md"
   ],
+  "scripts": {
+    "build:core": "rollup -c rollup.config.js",
+    "build:vue2": "vue-cli-service build --target lib --dest dist/vue2 --name TilesViewer src/vue2/index.js",
+    "build:vue3": "vite build",
+    "build": "npm run build:core && npm run build:vue2 && npm run build:vue3"
+  },
   "peerDependencies": {
-    "3d-tiles-renderer": ">=0.3.0",
-    "three": ">=0.158.0"
+    "three": ">=0.158.0",
+    "3d-tiles-renderer": ">=0.3.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/cli-service": "^5.0.8",
+    "rollup": "^3.29.5",
+    "vite": "^4.5.3",
+    "vue": "^3.4.38",
+    "vue-template-compiler": "^2.7.16",
+    "webpack": "^5.95.0"
   },
   "keywords": [
     "3d-tiles",
@@ -30,21 +55,5 @@
     "gis"
   ],
   "author": "",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yourname/vue-3dtiles-viewer.git"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@vitejs/plugin-vue": "^4.6.2",
-    "@vue/cli-service": "^5.0.8",
-    "rollup": "^3.29.5",
-    "vite": "^4.5.3",
-    "vue": "^3.4.38",
-    "vue-template-compiler": "^2.7.16",
-    "webpack": "^5.95.0",
-    "webpack-cli": "^5.1.4"
-  }
+  "license": "MIT"
 }
