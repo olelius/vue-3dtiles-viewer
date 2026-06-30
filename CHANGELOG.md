@@ -1,5 +1,12 @@
 ﻿# Changelog
 
+## [1.0.2] - 2026-06-30
+
+### Changed
+- 将推荐分发方式调整为 GitHub Release `.tgz` 附件安装。
+- README 补充 `.tgz` 安装、Gitea Release 同类分发方式和 peer 依赖说明。
+- 包版本更新为 `1.0.2`。
+
 ## [1.0.1] - 2026-06-30
 
 ### Fixed
