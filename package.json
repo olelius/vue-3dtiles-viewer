@@ -9,7 +9,10 @@
       "import": "./dist/core/index.esm.js",
       "require": "./dist/core/index.cjs.js"
     },
-    "./vue2": "./dist/vue2/TilesViewer.common.js",
+    "./vue2": {
+      "import": "./dist/vue2/index.esm.js",
+      "require": "./dist/vue2/TilesViewer.common.js"
+    },
     "./vue3": {
       "import": "./dist/vue3/index.mjs",
       "require": "./dist/vue3/index.js"
@@ -24,13 +27,13 @@
   ],
   "scripts": {
     "build:core": "rollup -c rollup.config.js",
-    "build:vue2": "vue-cli-service build --target lib --dest dist/vue2 --name TilesViewer src/vue2/index.js",
+    "build:vue2": "vue-cli-service build --target lib --dest dist/vue2 --name TilesViewer src/vue2/index.js && rollup -c rollup.vue2.config.js",
     "build:vue3": "vite build",
     "build": "npm run build:core && npm run build:vue2 && npm run build:vue3"
   },
   "peerDependencies": {
-    "three": ">=0.158.0",
-    "3d-tiles-renderer": ">=0.3.0"
+    "3d-tiles-renderer": ">=0.3.0",
+    "three": ">=0.158.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -38,6 +41,7 @@
     "@vitejs/plugin-vue": "^4.6.2",
     "@vue/cli-service": "^5.0.8",
     "rollup": "^3.29.5",
+    "three": "^0.167.1",
     "vite": "^4.5.3",
     "vue": "^3.4.38",
     "vue-template-compiler": "^2.7.16",

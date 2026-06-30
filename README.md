@@ -172,12 +172,13 @@ const hideSelected = () => {
 
 ## 📝 分发模式
 
-本包采用**源码分发模式**：
-- 不包含预编译的 dist/
-- 由使用者的构建工具（webpack/vite）处理编译
-- 需要配置 `transpileDependencies`（Vue2）
+本包采用 **dist 构建产物分发模式**：
+- `core` 入口由 Rollup 构建为 CommonJS 和 ES Module
+- `vue2` 入口由 vue-cli-service 构建为库产物
+- `vue3` 入口由 Vite 构建为库产物
+- 使用者项目按 peerDependencies 安装 `three` 和 `3d-tiles-renderer`，无需编译组件源码
 
-这是 Vue 组件库的标准实践（如 Element UI、Vuetify）。
+Vue2 产物会内置 `3d-tiles-renderer`，避免 Vue2/Webpack 项目通过 CommonJS `require()` 解析该 ESM 包时失败。
 
 ## 🌐 浏览器兼容性
 
