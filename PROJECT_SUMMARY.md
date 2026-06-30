@@ -15,7 +15,7 @@
   - **GlobalId → Mesh 映射表性能优化**
   - 批量显隐：hideByGlobalIds / showByGlobalIds
   - 批量高亮：highlightByGlobalIds / clearHighlight
-  - 高亮分离：点击高亮（浅蓝）vs 业务高亮（橙色）
+  - 高亮分离：点击高亮与业务高亮分离管理
 
 - ✅ `src/vue2/ThreeTilesViewer.vue` - Vue2 组件
   - Options API
@@ -28,9 +28,9 @@
   - 生命周期管理（onMounted / onBeforeUnmount）
 
 #### 2. 配置文件（100%完成）
-- ✅ `package.json` - 源码分发模式配置
+- ✅ `package.json` - dist 构建产物分发模式配置
 - ✅ `.gitignore`
-- ✅ Git 仓库：5次提交，tag v1.0.0
+- ✅ Git 仓库：已推送到 `origin/master`，tag v1.0.0 / v1.0.1
 
 #### 3. 文档（100%完成）
 - ✅ `README.md` - 完整使用说明
@@ -39,34 +39,44 @@
 
 ---
 
-## 📋 技术方案：源码分发模式
+## 📋 技术方案：dist 构建产物分发模式
 
-### 什么是源码分发？
+### 什么是 dist 分发？
 ```json
 {
   "exports": {
-    "./vue2": "./src/vue2/index.js",
-    "./vue3": "./src/vue3/index.js"
+    "./core": {
+      "import": "./dist/core/index.esm.js",
+      "require": "./dist/core/index.cjs.js"
+    },
+    "./vue2": {
+      "import": "./dist/vue2/index.esm.js",
+      "require": "./dist/vue2/TilesViewer.common.js"
+    },
+    "./vue3": {
+      "import": "./dist/vue3/index.mjs",
+      "require": "./dist/vue3/index.js"
+    }
   }
 }
 ```
 
-- **不提供预编译的 dist/**
-- **直接暴露 src/ 源码**
-- **使用者的构建工具负责编译**
+- **提供预编译的 dist/**
+- **使用者按 Vue 版本选择入口**
+- **使用者项目只需安装 peer 依赖**
 
-### 为什么选择源码分发？
-1. ✅ Vue 生态标准实践（Element UI、Vuetify 等都这样做）
-2. ✅ 避免构建工具依赖冲突
-3. ✅ 不需要维护多种构建产物
-4. ✅ 使用者可以用自己的构建工具优化
+### 为什么选择 dist 分发？
+1. ✅ Git 安装后可直接使用构建产物
+2. ✅ 避免使用者项目编译组件源码
+3. ✅ Vue2 CommonJS 入口已处理 `3d-tiles-renderer` 的 ESM 兼容问题
+4. ✅ 保留 `./src/*` 导出，便于源码调试
 
 ### 与设计文档的差异
-| 设计文档 | 实际实现 | 原因 |
+| 设计文档 | 实际实现 | 说明 |
 |---------|---------|------|
-| 预编译 dist/ | 源码分发 | npm 环境问题，采用更标准方案 |
-| 构建工具依赖 | 无构建依赖 | 避免 564 个包的依赖地狱 |
-| prepare 钩子 | 无需构建 | 源码直接使用 |
+| 单包多入口 | 已实现 | core / vue2 / vue3 |
+| 预编译 dist/ | 已实现 | dist 产物提交到仓库 |
+| peerDependencies | 已实现 | 使用者安装 three 和 3d-tiles-renderer |
 
 ---
 
@@ -215,7 +225,11 @@ npm install
 npm run serve
 ```
 
-**注意：** 由于 npm 环境问题，依赖安装可能失败。但组件源码已完成，可在正常环境使用。
+**验证结果：** 已执行 `npm run build`，构建通过，仅存在 webpack 体积警告，不阻塞构建。
+
+### Vue3 测试项目
+
+Vue3 独立消费方构建尚未验证，后续单独处理。当前仅保留 `dist/vue3` 既有库产物，不在本次收尾中继续处理 Vue3 验证。
 
 ---
 
@@ -223,7 +237,7 @@ npm run serve
 
 - **代码行数：** ~500 行（核心类 ~400 行 + Vue 组件 ~100 行）
 - **文件数量：** 13 个
-- **Git 提交：** 5 次
+- **Git 提交：** 以 `git log` 为准
 - **开发时间：** 完整对话周期
 - **依赖数量：** 2 个运行时依赖（three、3d-tiles-renderer）
 
@@ -246,22 +260,18 @@ npm run serve
 - ✅ 可维护性好
 
 **可用性：**
-- ✅ 可以在 Vue2/Vue3 项目中导入使用
-- ✅ 不需要额外构建步骤
-- ✅ 使用者的构建工具自动处理
+- ✅ Vue2 独立消费方构建已验证
+- ✅ Vue3 库产物已存在
+- ⚠️ Vue3 独立消费方构建尚未验证
+- ✅ 使用者无需编译组件源码
 
 ---
 
 ## 📝 遗留问题
 
-1. **npm 环境问题**
-   - npm install 在当前环境反复超时/失败
-   - 建议在稳定网络环境重试
-   - 或使用 cnpm / yarn
-
-2. **完整运行测试**
-   - 由于依赖安装问题，未能启动 vue-cli-service
-   - 但代码逻辑完整，在正常环境应该可以运行
+1. **Vue3 独立消费方验证**
+   - 当前尚未创建 Vue3 消费方项目进行构建验证
+   - 后续应单独验证 `vue-3dtiles-viewer/vue3` 在 Vite/Vue3 项目中的导入和生产构建
 
 ---
 
@@ -273,14 +283,9 @@ npm run serve
 
 **Git 仓库状态：**
 ```bash
-git log --oneline
-c250616 docs: 完善 README，说明源码分发模式和使用方法
-20bbea6 refactor: 改为源码分发模式，移除构建依赖
-fd8be31 build: 添加 dist 构建产物（源码分发模式）
-424dcef chore: 添加 prepare 钩子，支持安装时自动构建
-8bbf3d6 feat: 初始化 vue-3dtiles-viewer v1.0.0
+git log --oneline --decorate -5
 ```
 
 ---
 
-**项目完成时间：** 2026-06-29
+**1.0.1 收尾时间：** 2026-06-30

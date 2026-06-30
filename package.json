@@ -1,6 +1,6 @@
 {
   "name": "vue-3dtiles-viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "3D Tiles viewer component for Vue2 and Vue3",
   "main": "dist/core/index.cjs.js",
   "module": "dist/core/index.esm.js",

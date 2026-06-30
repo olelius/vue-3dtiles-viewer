@@ -18,7 +18,7 @@
 npm install file:../vue-3dtiles-viewer
 
 # 从 Git 安装
-npm install git+https://github.com/yourname/vue-3dtiles-viewer.git
+npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1
 
 # 安装 peer 依赖
 npm install three@0.167.0 3d-tiles-renderer@0.4.28
@@ -179,6 +179,12 @@ const hideSelected = () => {
 - 使用者项目按 peerDependencies 安装 `three` 和 `3d-tiles-renderer`，无需编译组件源码
 
 Vue2 产物会内置 `3d-tiles-renderer`，避免 Vue2/Webpack 项目通过 CommonJS `require()` 解析该 ESM 包时失败。
+
+## ✅ 验证状态
+
+- Core/Vue2 构建已验证：`npm run build:core`、`npm run build:vue2`
+- Vue2 独立消费方构建已验证：`vue2-test-project` 执行 `npm run build`
+- Vue3 独立消费方构建尚未验证，将作为后续单独收尾项处理
 
 ## 🌐 浏览器兼容性
 

@@ -1,5 +1,14 @@
 ﻿# vue-3dtiles-viewer 项目完成报告
 
+## ✅ 1.0.1 收尾状态
+
+- 包版本已更新为 `1.0.1`。
+- Git 远端已有 `v1.0.1` 标签，标签指向功能修复提交 `803bc94`。
+- 本次收尾只补齐版本元数据和中文文档，不重写已推送标签。
+- Core/Vue2 构建已验证。
+- Vue2 独立消费方构建已验证。
+- Vue3 独立消费方构建尚未验证，后续单独处理。
+
 ## ✅ 设计文档完成情况
 
 ### 1. 核心功能实现（100%）
@@ -11,7 +20,7 @@
 - ✅ GlobalId → Mesh 映射表性能优化
 - ✅ 批量显隐：hideByGlobalIds / showByGlobalIds
 - ✅ 批量高亮：highlightByGlobalIds / clearHighlight
-- ✅ 高亮分离：点击高亮（浅蓝）vs 业务高亮（橙色）
+- ✅ 高亮分离：点击高亮与业务高亮分离管理
 
 #### 1.2 Vue2 组件
 - ✅ Options API 实现
@@ -61,14 +70,14 @@
 ### 4. 文档（100%）
 
 - ✅ README.md：完整使用说明
-- ✅ CHANGELOG.md：v1.0.0 记录
+- ✅ CHANGELOG.md：v1.0.0 / v1.0.1 记录
 - ✅ 设计文档：docs/superpowers/specs/2026-06-29-vue-3dtiles-viewer-design.md
 
 ### 5. Git 管理（100%）
 
 - ✅ 初始化仓库
 - ✅ 提交所有代码和构建产物
-- ✅ Tag v1.0.0
+- ✅ Tag v1.0.0 / v1.0.1
 
 ## 📊 构建产物清单
 
@@ -100,8 +109,8 @@ dist/
 | Vite 构建 Vue3 | ✅ 100% | 生成 MJS + JS |
 | package.json 配置 | ✅ 100% | exports 正确配置 |
 | README 文档 | ✅ 100% | 使用说明完整 |
-| CHANGELOG | ✅ 100% | v1.0.0 记录 |
-| Git 仓库 | ✅ 100% | Tag v1.0.0 |
+| CHANGELOG | ✅ 100% | v1.0.0 / v1.0.1 记录 |
+| Git 仓库 | ✅ 100% | Tag v1.0.0 / v1.0.1 |
 
 ## 📝 使用方式
 
@@ -137,6 +146,9 @@ import ThreeTilesViewer from 'vue-3dtiles-viewer/vue3';
 
 **项目位置：** D:\Documents\test\3DTiles_load\vue-3dtiles-viewer\
 
-**Git Tag：** v1.0.0
+**Git Tag：** v1.0.1
 
-**最后提交：** f81ba76 - build: 完成构建，生成 dist/ 产物
+**验证状态：**
+- Core/Vue2 构建：已验证 `npm run build:core`、`npm run build:vue2`
+- Vue2 独立消费方构建：已验证 `npm run build`
+- Vue3 独立消费方构建：尚未验证，后续单独处理
