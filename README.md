@@ -13,12 +13,25 @@
 
 ## 📦 安装
 
+本包发布到 GitHub Packages，正式安装时使用 scoped 包名：
+
+```ini
+# .npmrc
+@olelius:registry=https://npm.pkg.github.com
+```
+
+如果 GitHub Packages 需要认证，请在本机或 CI 环境配置 token：
+
+```ini
+//npm.pkg.github.com/:_authToken=你的_GitHub_Token
+```
+
 ```bash
 # 从本地安装
 npm install file:../vue-3dtiles-viewer
 
-# 从 Git 安装
-npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1
+# 从 GitHub Packages 安装
+npm install @olelius/vue-3dtiles-viewer@1.0.1
 
 # 安装 peer 依赖
 npm install three@0.167.0 3d-tiles-renderer@0.4.28
@@ -27,7 +40,7 @@ npm install three@0.167.0 3d-tiles-renderer@0.4.28
 推荐在业务项目中一次性显式安装组件和 peer 依赖：
 
 ```bash
-npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 three@0.167.0 3d-tiles-renderer@0.4.28
+npm install @olelius/vue-3dtiles-viewer@1.0.1 three@0.167.0 3d-tiles-renderer@0.4.28
 ```
 
 如果需要完全锁定测试版本，不希望 npm 自动升级到 `three@0.167.1` 这类补丁版本，请在业务项目的 `package.json` 中使用不带 `^` 的版本号：
@@ -35,7 +48,7 @@ npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 three@0
 ```json
 {
   "dependencies": {
-    "vue-3dtiles-viewer": "git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1",
+    "@olelius/vue-3dtiles-viewer": "1.0.1",
     "three": "0.167.0",
     "3d-tiles-renderer": "0.4.28"
   }
@@ -44,14 +57,15 @@ npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 three@0
 
 ### 安装说明
 
-- `git+https://...#v1.0.1` 会从 GitHub 拉取 Git 标签，通常比普通 npm 包安装慢；网络到 GitHub 不稳定时，安装耗时几分钟是正常现象。
+- GitHub Packages 安装方式不再使用 Git 仓库 URL，而是通过 `.npmrc` 把 `@olelius` scope 指向 `https://npm.pkg.github.com`。
+- `git+https://...#v1.0.1` 仍可作为开发期备用方式，但它会从 GitHub 拉取 Git 标签，通常比 GitHub Packages 包安装慢。
 - `three` 和 `3d-tiles-renderer` 是本组件的 `peerDependencies`。npm 7+ 可能会尝试自动安装缺失的 peer 依赖，但自动解析出的版本不一定是本项目验证过的版本。
 - 如果业务项目中已经安装了满足范围的 `three`（例如 `>=0.158.0`），npm 通常会复用已有版本，不会主动覆盖 `package.json` 中的直接依赖声明。
 - 如果业务项目中的 `three` 版本不满足范围，npm 可能报 peer dependency 冲突，或调整 `package-lock.json` 的依赖解析结果。
 - 如果只想安装组件包、忽略 peer 依赖自动安装和冲突处理，可以使用：
 
 ```bash
-npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 --legacy-peer-deps
+npm install @olelius/vue-3dtiles-viewer@1.0.1 --legacy-peer-deps
 ```
 
 使用 `--legacy-peer-deps` 后，需要业务项目自己确保已经安装可兼容的 `three` 和 `3d-tiles-renderer`，否则运行时可能报模块缺失或 API 不兼容。
@@ -65,7 +79,7 @@ npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 --legac
 ```javascript
 module.exports = {
   transpileDependencies: [
-    'vue-3dtiles-viewer'
+    '@olelius/vue-3dtiles-viewer'
   ]
 };
 ```
@@ -86,7 +100,7 @@ module.exports = {
 </template>
 
 <script>
-import ThreeTilesViewer from 'vue-3dtiles-viewer/vue2';
+import ThreeTilesViewer from '@olelius/vue-3dtiles-viewer/vue2';
 
 export default {
   components: { ThreeTilesViewer },
@@ -135,7 +149,7 @@ export default {
 
 <script setup>
 import { ref } from 'vue';
-import ThreeTilesViewer from 'vue-3dtiles-viewer/vue3';
+import ThreeTilesViewer from '@olelius/vue-3dtiles-viewer/vue3';
 
 const viewer = ref(null);
 const tilesetUrl = '/tiles/tileset.json';
