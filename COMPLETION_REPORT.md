@@ -7,7 +7,7 @@
 - 本次收尾只补齐版本元数据和中文文档，不重写已推送标签。
 - Core/Vue2 构建已验证。
 - Vue2 独立消费方构建已验证。
-- Vue3 独立消费方构建尚未验证，后续单独处理。
+- Vue3 独立消费方验证单独进行，不纳入本次 1.0.1 文档收尾结论。
 
 ## ✅ 设计文档完成情况
 
@@ -70,14 +70,14 @@
 ### 4. 文档（100%）
 
 - ✅ README.md：完整使用说明
-- ✅ CHANGELOG.md：v1.0.0 / v1.0.1 记录
+- ✅ CHANGELOG.md：包含 1.0.1 记录
 - ✅ 设计文档：docs/superpowers/specs/2026-06-29-vue-3dtiles-viewer-design.md
 
 ### 5. Git 管理（100%）
 
 - ✅ 初始化仓库
 - ✅ 提交所有代码和构建产物
-- ✅ Tag v1.0.0 / v1.0.1
+- ✅ 当前发布标签：v1.0.1
 
 ## 📊 构建产物清单
 
@@ -109,8 +109,8 @@ dist/
 | Vite 构建 Vue3 | ✅ 100% | 生成 MJS + JS |
 | package.json 配置 | ✅ 100% | exports 正确配置 |
 | README 文档 | ✅ 100% | 使用说明完整 |
-| CHANGELOG | ✅ 100% | v1.0.0 / v1.0.1 记录 |
-| Git 仓库 | ✅ 100% | Tag v1.0.0 / v1.0.1 |
+| CHANGELOG | ✅ 100% | 包含 1.0.1 记录 |
+| Git 仓库 | ✅ 100% | 当前发布标签 v1.0.1 |
 
 ## 📝 使用方式
 
@@ -151,4 +151,4 @@ import ThreeTilesViewer from 'vue-3dtiles-viewer/vue3';
 **验证状态：**
 - Core/Vue2 构建：已验证 `npm run build:core`、`npm run build:vue2`
 - Vue2 独立消费方构建：已验证 `npm run build`
-- Vue3 独立消费方构建：尚未验证，后续单独处理
+- Vue3 独立消费方验证：单独进行，不纳入本次 1.0.1 文档收尾结论

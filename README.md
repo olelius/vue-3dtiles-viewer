@@ -184,7 +184,7 @@ Vue2 产物会内置 `3d-tiles-renderer`，避免 Vue2/Webpack 项目通过 Comm
 
 - Core/Vue2 构建已验证：`npm run build:core`、`npm run build:vue2`
 - Vue2 独立消费方构建已验证：`vue2-test-project` 执行 `npm run build`
-- Vue3 独立消费方构建尚未验证，将作为后续单独收尾项处理
+- Vue3 独立消费方验证单独进行，不纳入本次 1.0.1 文档收尾结论
 
 ## 🌐 浏览器兼容性
 
