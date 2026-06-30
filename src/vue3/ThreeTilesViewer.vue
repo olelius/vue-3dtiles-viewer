@@ -50,6 +50,13 @@ export default {
       }
     };
 
+    const getBoundingSphere = () => {
+      if (viewer.value) {
+        return viewer.value.getBoundingSphere();
+      }
+      return null;
+    };
+
     const hideByGlobalIds = (globalIds) => {
       if (viewer.value) {
         viewer.value.hideByGlobalIds(globalIds);
@@ -75,7 +82,9 @@ export default {
     };
 
     expose({
+      viewer,
       resetCamera,
+      getBoundingSphere,
       hideByGlobalIds,
       showByGlobalIds,
       highlightByGlobalIds,

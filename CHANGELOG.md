@@ -1,4 +1,16 @@
-﻿# Changelog
+# Changelog
+
+## [1.0.3] - 2026-06-30
+
+### Added
+- Vue3 组件补齐 `getBoundingSphere()` 方法，与 Vue2 暴露方法保持一致。
+- Vue3 组件通过 `expose()` 暴露内部 `viewer` 调试入口，与 Vue2 通过 `$refs.viewer.viewer` 访问内部实例的能力保持一致。
+- Vue3 入口补充 `install(app)`，支持与 Vue2 一致的插件式注册方式。
+- 新增 `npm run test:api-parity`，用于检查 Vue2 和 Vue3 对外 API 一致性。
+
+### Changed
+- README 更新为 `v1.0.3` 安装地址，并明确 Vue2/Vue3 的 Props、Events、Methods 和调试入口保持一致。
+- 包版本更新为 `1.0.3`。
 
 ## [1.0.2] - 2026-06-30
 

@@ -50,6 +50,13 @@ export default {
       }
     },
 
+    getBoundingSphere() {
+      if (this.viewer) {
+        return this.viewer.getBoundingSphere();
+      }
+      return null;
+    },
+
     hideByGlobalIds(globalIds) {
       if (this.viewer) {
         this.viewer.hideByGlobalIds(globalIds);

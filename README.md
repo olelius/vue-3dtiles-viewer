@@ -20,7 +20,7 @@
 npm install file:../vue-3dtiles-viewer
 
 # 从 GitHub Release 安装
-npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.2/olelius-vue-3dtiles-viewer-1.0.2.tgz
+npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.3/olelius-vue-3dtiles-viewer-1.0.3.tgz
 
 # 安装 peer 依赖
 npm install three@0.167.0 3d-tiles-renderer@0.4.28
@@ -29,7 +29,7 @@ npm install three@0.167.0 3d-tiles-renderer@0.4.28
 推荐在业务项目中一次性显式安装组件和 peer 依赖：
 
 ```bash
-npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.2/olelius-vue-3dtiles-viewer-1.0.2.tgz three@0.167.0 3d-tiles-renderer@0.4.28
+npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.3/olelius-vue-3dtiles-viewer-1.0.3.tgz three@0.167.0 3d-tiles-renderer@0.4.28
 ```
 
 如果需要完全锁定测试版本，不希望 npm 自动升级到 `three@0.167.1` 这类补丁版本，请在业务项目的 `package.json` 中使用不带 `^` 的版本号：
@@ -37,7 +37,7 @@ npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0
 ```json
 {
   "dependencies": {
-    "@olelius/vue-3dtiles-viewer": "https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.2/olelius-vue-3dtiles-viewer-1.0.2.tgz",
+    "@olelius/vue-3dtiles-viewer": "https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.3/olelius-vue-3dtiles-viewer-1.0.3.tgz",
     "three": "0.167.0",
     "3d-tiles-renderer": "0.4.28"
   }
@@ -48,14 +48,14 @@ npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0
 
 - GitHub Release `.tgz` 安装的是固定压缩包，内容由 `npm pack` 生成，通常比 `git+https://...` 安装更稳定。
 - 如果仓库迁移到 Gitea，也可以采用同样逻辑：把 `.tgz` 上传到 Gitea Release，然后把安装 URL 换成 Gitea Release 附件地址。
-- `git+https://...#v1.0.2` 仍可作为开发期备用方式，但它会从 GitHub 拉取 Git 标签，通常比 `.tgz` 包安装慢。
+- `git+https://...#v1.0.3` 仍可作为开发期备用方式，但它会从 GitHub 拉取 Git 标签，通常比 `.tgz` 包安装慢。
 - `three` 和 `3d-tiles-renderer` 是本组件的 `peerDependencies`。npm 7+ 可能会尝试自动安装缺失的 peer 依赖，但自动解析出的版本不一定是本项目验证过的版本。
 - 如果业务项目中已经安装了满足范围的 `three`（例如 `>=0.158.0`），npm 通常会复用已有版本，不会主动覆盖 `package.json` 中的直接依赖声明。
 - 如果业务项目中的 `three` 版本不满足范围，npm 可能报 peer dependency 冲突，或调整 `package-lock.json` 的依赖解析结果。
 - 如果只想安装组件包、忽略 peer 依赖自动安装和冲突处理，可以使用：
 
 ```bash
-npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.2/olelius-vue-3dtiles-viewer-1.0.2.tgz --legacy-peer-deps
+npm install https://github.com/olelius/vue-3dtiles-viewer/releases/download/v1.0.3/olelius-vue-3dtiles-viewer-1.0.3.tgz --legacy-peer-deps
 ```
 
 使用 `--legacy-peer-deps` 后，需要业务项目自己确保已经安装可兼容的 `three` 和 `3d-tiles-renderer`，否则运行时可能报模块缺失或 API 不兼容。
@@ -185,10 +185,30 @@ const hideSelected = () => {
 | 方法名 | 参数 | 说明 |
 |--------|------|------|
 | `resetCamera()` | - | 重置相机到模型中心视角 |
+| `getBoundingSphere()` | - | 获取当前模型世界坐标包围球，未加载完成时返回 `null` |
 | `hideByGlobalIds(globalIds)` | `string[]` | 批量隐藏构件 |
 | `showByGlobalIds(globalIds)` | `string[]` | 批量显示构件 |
 | `highlightByGlobalIds(globalIds)` | `string[]` | 批量高亮构件（橙色） |
 | `clearHighlight()` | - | 清除批量高亮 |
+
+### Vue2 / Vue3 API 一致性
+
+Vue2 和 Vue3 入口保持一致的业务使用方式：
+
+- Props 一致：`tilesetUrl`
+- Events 一致：`select`、`ready`、`error`
+- Methods 一致：`resetCamera()`、`getBoundingSphere()`、`hideByGlobalIds()`、`showByGlobalIds()`、`highlightByGlobalIds()`、`clearHighlight()`
+- 调试入口一致：组件 ref 上暴露内部 `viewer` 实例，Vue2 可通过 `this.$refs.viewer.viewer` 访问，Vue3 可通过 `viewerRef.value.viewer` 访问。
+
+两者主要区别只在引用路径和框架语法：
+
+```javascript
+// Vue2
+import ThreeTilesViewer from '@olelius/vue-3dtiles-viewer/vue2';
+
+// Vue3
+import ThreeTilesViewer from '@olelius/vue-3dtiles-viewer/vue3';
+```
 
 ## 🔧 依赖版本
 
@@ -220,7 +240,8 @@ Vue2 产物会内置 `3d-tiles-renderer`，避免 Vue2/Webpack 项目通过 Comm
 
 - Core/Vue2 构建已验证：`npm run build:core`、`npm run build:vue2`
 - Vue2 独立消费方构建已验证：`vue2-test-project` 执行 `npm run build`
-- Vue3 独立消费方验证单独进行，不纳入本次 1.0.2 Release 分发结论
+- API 一致性检查已验证：`npm run test:api-parity`
+- Vue3 独立消费方构建已验证：`vue3-test-project` 执行 `npm run build`
 
 ## 🌐 浏览器兼容性
 
