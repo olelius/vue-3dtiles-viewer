@@ -24,6 +24,38 @@ npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1
 npm install three@0.167.0 3d-tiles-renderer@0.4.28
 ```
 
+推荐在业务项目中一次性显式安装组件和 peer 依赖：
+
+```bash
+npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 three@0.167.0 3d-tiles-renderer@0.4.28
+```
+
+如果需要完全锁定测试版本，不希望 npm 自动升级到 `three@0.167.1` 这类补丁版本，请在业务项目的 `package.json` 中使用不带 `^` 的版本号：
+
+```json
+{
+  "dependencies": {
+    "vue-3dtiles-viewer": "git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1",
+    "three": "0.167.0",
+    "3d-tiles-renderer": "0.4.28"
+  }
+}
+```
+
+### 安装说明
+
+- `git+https://...#v1.0.1` 会从 GitHub 拉取 Git 标签，通常比普通 npm 包安装慢；网络到 GitHub 不稳定时，安装耗时几分钟是正常现象。
+- `three` 和 `3d-tiles-renderer` 是本组件的 `peerDependencies`。npm 7+ 可能会尝试自动安装缺失的 peer 依赖，但自动解析出的版本不一定是本项目验证过的版本。
+- 如果业务项目中已经安装了满足范围的 `three`（例如 `>=0.158.0`），npm 通常会复用已有版本，不会主动覆盖 `package.json` 中的直接依赖声明。
+- 如果业务项目中的 `three` 版本不满足范围，npm 可能报 peer dependency 冲突，或调整 `package-lock.json` 的依赖解析结果。
+- 如果只想安装组件包、忽略 peer 依赖自动安装和冲突处理，可以使用：
+
+```bash
+npm install git+https://github.com/olelius/vue-3dtiles-viewer.git#v1.0.1 --legacy-peer-deps
+```
+
+使用 `--legacy-peer-deps` 后，需要业务项目自己确保已经安装可兼容的 `three` 和 `3d-tiles-renderer`，否则运行时可能报模块缺失或 API 不兼容。
+
 ## 🚀 使用
 
 ### Vue2 项目
